@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object id="window" class="GtkWindow">
+    <property name="title">Test Layout</property>
+    <child>
+      <object id="outer-box" class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <child>
+          <object id="drawing-area" class="GtkDrawingArea">
+            <property name="hexpand">TRUE</property>
+            <property name="halign">fill</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="margin-top">16</property>
+            <property name="margin-bottom">16</property>
+            <property name="margin-start">16</property>
+            <property name="margin-end">16</property>
+            <child>
+              <object id="slider-label" class="GtkLabel">
+                <property name="label">Point Count</property>
+              </object>
+            </child>
+            <child>
+              <object id="slider" class="GtkScale">
+                <property name="width-request">256</property>
+                <property name="draw-value">TRUE</property>
+                <property name="value-pos">right</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

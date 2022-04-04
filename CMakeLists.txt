@@ -12,6 +12,8 @@ link_directories(${GTK4_LIBRARY_DIRS})
 
 add_executable(chaos_game
     src/main.c
+    src/app.c
+    src/model.c
     )
 
 target_link_libraries(chaos_game ${GTK4_LIBRARIES})
