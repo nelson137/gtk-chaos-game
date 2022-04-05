@@ -2,6 +2,7 @@
 <interface>
   <object id="window" class="GtkWindow">
     <property name="title">Test Layout</property>
+    <property name="resizable">FALSE</property>
     <child>
       <object id="outer-box" class="GtkBox">
         <property name="orientation">horizontal</property>

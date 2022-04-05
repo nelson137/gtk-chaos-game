@@ -5,6 +5,10 @@
 
 #include "gtk/gtk.h"
 
+#define NUM_POINTS 4096
+
+void generate_points();
+
 char *format_point_count_value(GtkScale *scale, double value, gpointer data);
 
 void on_point_count_change(GtkRange *self, gpointer data);

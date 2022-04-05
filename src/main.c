@@ -11,10 +11,8 @@ static const gchar *APP_TITLE = "Chaos Game";
 
 #define PROJ_ROOT "/Users/nelson/Projects/chaos-game"
 
-#define WIDTH 800
+#define WIDTH 888
 #define HEIGHT 600
-
-#define POINT_COUNT_MAX 1000.0
 
 void activate(GtkApplication *app, gpointer data)
 {
@@ -33,7 +31,7 @@ void activate(GtkApplication *app, gpointer data)
         GTK_DRAWING_AREA(drawing_area), on_draw, model, NULL);
 
     GObject *slider = gtk_builder_get_object(builder, "slider");
-    gtk_range_set_range(GTK_RANGE(slider), 0.0, POINT_COUNT_MAX);
+    gtk_range_set_range(GTK_RANGE(slider), 0.0, (double)NUM_POINTS);
     gtk_range_set_increments(GTK_RANGE(slider), 1.0, 10.0);
     gtk_scale_set_format_value_func(
         GTK_SCALE(slider), format_point_count_value, NULL, NULL);
@@ -48,6 +46,8 @@ void activate(GtkApplication *app, gpointer data)
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
+
+    generate_points();
 
     Model *model = model_new();
 
