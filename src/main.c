@@ -38,6 +38,13 @@ void activate(GtkApplication *app, gpointer data)
     g_signal_connect(motion, "enter", G_CALLBACK(on_motion_enter), model);
     g_signal_connect(motion, "motion", G_CALLBACK(on_motion_update), model);
     g_signal_connect(motion, "leave", G_CALLBACK(on_motion_leave), model);
+    GtkGesture *click = gtk_gesture_click_new();
+    gtk_widget_add_controller(
+        GTK_WIDGET(drawing_area), GTK_EVENT_CONTROLLER(click));
+    gtk_gesture_single_set_button(
+        GTK_GESTURE_SINGLE(click), GDK_BUTTON_PRIMARY);
+    g_signal_connect(
+        click, "released", G_CALLBACK(on_drawing_area_click_released), model);
 
     GObject *slider = gtk_builder_get_object(builder, "slider");
     gtk_range_set_range(GTK_RANGE(slider), 0.0, (double)NUM_POINTS);
@@ -56,6 +63,7 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
+    set_initial_point(330.0, 250.0);
     generate_points();
 
     Model *model = model_new();

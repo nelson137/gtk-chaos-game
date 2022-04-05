@@ -22,6 +22,7 @@ add_executable(chaos_game
     src/main.c
     src/app.c
     src/model.c
+    src/util.c
     ${CMAKE_CURRENT_BINARY_DIR}/builder.ui.h
     )
 

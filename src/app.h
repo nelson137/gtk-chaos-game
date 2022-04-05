@@ -5,8 +5,11 @@
 
 #include "gtk/gtk.h"
 
+#include "util.h"
+
 #define NUM_POINTS 4096
 
+void set_initial_point(double x, double y);
 void generate_points();
 
 gboolean on_drawing_area_tick(
@@ -27,6 +30,13 @@ void on_motion_update(
     gpointer data);
 
 void on_motion_leave(GtkEventControllerMotion *self, gpointer data);
+
+void on_drawing_area_click_released(
+    GtkGestureClick *self,
+    gint n_press,
+    gdouble x,
+    gdouble y,
+    gpointer data);
 
 char *format_point_count_value(GtkScale *scale, double value, gpointer data);
 

@@ -11,6 +11,9 @@ Model *model_new()
     model->cursor_in_draw = FALSE;
     model->draw_cursor_x = 0;
     model->draw_cursor_y = 0;
+    model->last_draw_click.tv_sec = 0;
+    model->last_draw_click.tv_usec = 0;
+    model->valid_draw_click = TRUE;
     model->point_count = 0;
     return model;
 }
