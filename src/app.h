@@ -9,6 +9,11 @@
 
 void generate_points();
 
+gboolean on_drawing_area_tick(
+    GtkWidget *self,
+    GdkFrameClock *clock,
+    gpointer data);
+
 void on_motion_enter(
     GtkEventControllerMotion *self,
     gdouble x,

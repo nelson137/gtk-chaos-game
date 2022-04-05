@@ -42,6 +42,15 @@ void generate_points()
     }
 }
 
+gboolean on_drawing_area_tick(
+    GtkWidget *self,
+    GdkFrameClock *clock,
+    gpointer data)
+{
+    gtk_widget_queue_draw(self);
+    return G_SOURCE_CONTINUE;
+}
+
 void on_motion_enter(
     GtkEventControllerMotion *self,
     gdouble x,
@@ -52,7 +61,6 @@ void on_motion_enter(
     model->cursor_in_draw = TRUE;
     model->draw_cursor_x = (int)x;
     model->draw_cursor_y = (int)y;
-    model_flush(model);
 }
 
 void on_motion_update(
@@ -64,14 +72,12 @@ void on_motion_update(
     Model *model = (Model *)data;
     model->draw_cursor_x = (int)x;
     model->draw_cursor_y = (int)y;
-    model_flush(model);
 }
 
 void on_motion_leave(GtkEventControllerMotion *self, gpointer data)
 {
     Model *model = (Model *)data;
     model->cursor_in_draw = FALSE;
-    model_flush(model);
 }
 
 char *format_point_count_value(GtkScale *scale, double value, gpointer data)
@@ -84,7 +90,6 @@ void on_point_count_change(GtkRange *self, gpointer data)
     Model *model = (Model *)data;
     int value = (int)gtk_range_get_value(self);
     model->point_count = value;
-    model_flush(model);
 }
 
 void _draw_point(cairo_t *cr, Point *p)

@@ -22,8 +22,3 @@ void model_free(Model **model)
     free(*model);
     *model = NULL;
 }
-
-void model_flush(Model *model)
-{
-    gtk_widget_queue_draw(GTK_WIDGET(model->drawing_area));
-}

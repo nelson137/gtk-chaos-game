@@ -28,6 +28,8 @@ void activate(GtkApplication *app, gpointer data)
 
     GObject *drawing_area = gtk_builder_get_object(builder, "drawing-area");
     model->drawing_area = GTK_DRAWING_AREA(drawing_area);
+    gtk_widget_add_tick_callback(
+        GTK_WIDGET(drawing_area), on_drawing_area_tick, model, NULL);
     gtk_drawing_area_set_draw_func(
         GTK_DRAWING_AREA(drawing_area), on_draw, model, NULL);
     GtkEventController *motion = gtk_event_controller_motion_new();

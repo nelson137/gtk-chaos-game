@@ -16,6 +16,4 @@ Model *model_new();
 
 void model_free(Model **model);
 
-void model_flush(Model *model);
-
 #endif
