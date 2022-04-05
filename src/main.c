@@ -30,6 +30,12 @@ void activate(GtkApplication *app, gpointer data)
     model->drawing_area = GTK_DRAWING_AREA(drawing_area);
     gtk_drawing_area_set_draw_func(
         GTK_DRAWING_AREA(drawing_area), on_draw, model, NULL);
+    GtkEventController *motion = gtk_event_controller_motion_new();
+    gtk_widget_add_controller(
+        GTK_WIDGET(drawing_area), GTK_EVENT_CONTROLLER(motion));
+    g_signal_connect(motion, "enter", G_CALLBACK(on_motion_enter), model);
+    g_signal_connect(motion, "motion", G_CALLBACK(on_motion_update), model);
+    g_signal_connect(motion, "leave", G_CALLBACK(on_motion_leave), model);
 
     GObject *slider = gtk_builder_get_object(builder, "slider");
     gtk_range_set_range(GTK_RANGE(slider), 0.0, (double)NUM_POINTS);

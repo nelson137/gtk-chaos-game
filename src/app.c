@@ -42,6 +42,38 @@ void generate_points()
     }
 }
 
+void on_motion_enter(
+    GtkEventControllerMotion *self,
+    gdouble x,
+    gdouble y,
+    gpointer data)
+{
+    Model *model = (Model *)data;
+    model->cursor_in_draw = TRUE;
+    model->draw_cursor_x = (int)x;
+    model->draw_cursor_y = (int)y;
+    model_flush(model);
+}
+
+void on_motion_update(
+    GtkEventControllerMotion *self,
+    gdouble x,
+    gdouble y,
+    gpointer data)
+{
+    Model *model = (Model *)data;
+    model->draw_cursor_x = (int)x;
+    model->draw_cursor_y = (int)y;
+    model_flush(model);
+}
+
+void on_motion_leave(GtkEventControllerMotion *self, gpointer data)
+{
+    Model *model = (Model *)data;
+    model->cursor_in_draw = FALSE;
+    model_flush(model);
+}
+
 char *format_point_count_value(GtkScale *scale, double value, gpointer data)
 {
     return g_strdup_printf("%d", (int)value);
@@ -83,4 +115,20 @@ void on_draw(
 
     for (int i = 0; i < slider_value; i++)
         _draw_point(cr, points + i);
+
+    if (model->cursor_in_draw)
+    {
+        static double text_margin = 6.0;
+        double text_x = text_margin;
+        double text_y = (double)height - text_margin;
+        cairo_move_to(cr, text_x, text_y);
+
+        cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
+
+        gchar *cursor_pos_text = g_strdup_printf(
+            "x=%d, y=%d", model->draw_cursor_x, model->draw_cursor_y);
+        cairo_show_text(cr, cursor_pos_text);
+        cairo_stroke(cr);
+        g_free(cursor_pos_text);
+    }
 }
