@@ -6,10 +6,10 @@
 #include "app.h"
 #include "model.h"
 
+#include "builder.ui.h"
+
 static const char *APP_ID = "com.nelsonearle.ChaosGame";
 static const gchar *APP_TITLE = "Chaos Game";
-
-#define PROJ_ROOT "/Users/nelson/Projects/chaos-game"
 
 #define WIDTH 888
 #define HEIGHT 600
@@ -18,7 +18,8 @@ void activate(GtkApplication *app, gpointer data)
 {
     Model *model = (Model *)data;
 
-    GtkBuilder *builder = gtk_builder_new_from_file(PROJ_ROOT "/builder.ui");
+    GtkBuilder *builder =
+        gtk_builder_new_from_string((const char *)BUILDER_UI, BUILDER_UI_LEN);
 
     GObject *window = gtk_builder_get_object(builder, "window");
     gtk_window_set_application(GTK_WINDOW(window), app);
